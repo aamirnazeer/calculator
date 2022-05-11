@@ -2,55 +2,42 @@ import "./App.css";
 import Button from "./UI/Button";
 import Display from "./UI/Display";
 import { useState } from "react";
+import keyboardButtons from "./keyboardButtons";
 
 function App() {
     const [input, setInput] = useState('');
+    const [output, setOutput] = useState('');
+    const [operator, setOperator] = useState('')
 
-    const setInputHandler = (event) => {
-		setInput((prev) => {
-			return prev + event.target.innerHTML
-		})
-    };
+    
 
-	const clearHandler = () => {
-		setInput('')
-	}
-
-	const calculateHandler = () => {
-        const solution = eval(input)
-		console.log(solution)
-        setInput(solution)
-	}
+    const keyPressHandler = (e) => {
+        const {value} = e.target
+        if (parseInt(value)) {
+            setInput((prev) => {
+                return prev + value
+            })
+         } else if (value == '+') {
+             setOperator(value)
+             
+         }
+         
+         
+         
+        
+    }
 
     return (
         <div className="App">
             <div className="vertical">
-                <div>
-                    <Display value={input} disabled/>
+                <div className="displayBlock">
+                    <Display id='topDisplay' value={input} disabled/>
+                    <Display id='bottomDisplay' value={output} disabled/>
                 </div>
-                <div className="inline">
-                    <Button onClick={setInputHandler}>1</Button>
-                    <Button onClick={setInputHandler}>2</Button>
-                    <Button onClick={setInputHandler}>3</Button>
-                    <Button onClick={setInputHandler}>+</Button>
-                </div>
-                <div className="inline">
-                    <Button onClick={setInputHandler}>4</Button>
-                    <Button onClick={setInputHandler}>5</Button>
-                    <Button onClick={setInputHandler}>6</Button>
-                    <Button onClick={setInputHandler}>-</Button>
-                </div>
-                <div className="inline">
-                    <Button onClick={setInputHandler}>7</Button>
-                    <Button onClick={setInputHandler}>8</Button>
-                    <Button onClick={setInputHandler}>9</Button>
-                    <Button onClick={setInputHandler}>*</Button>
-                </div>
-                <div className="inline">
-                    <Button onClick={clearHandler}>C</Button>
-                    <Button onClick={setInputHandler}>0</Button>
-                    <Button onClick={calculateHandler}>=</Button>
-                    <Button onClick={setInputHandler}>/</Button>
+                <div className="keypad">
+                    {Object.values(keyboardButtons).map((values) => {
+                        return <Button onClick={keyPressHandler} key={values} value={values}>{values}</Button>
+                    })}
                 </div>
             </div>
         </div>

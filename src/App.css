@@ -7,3 +7,25 @@
   display: flex;
   justify-content: center;
 }
+
+.keypad {
+  width: 280px;
+}
+
+.displayBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+#topDisplay {
+  border-bottom: 0px white solid;
+  text-align: left;
+  border-radius: 0px;
+}
+
+#bottomDisplay {
+  border-top: 0px white solid;
+  text-align: right;
+  border-radius: 0px;
+  font-size: 35px;
+}
